@@ -14,7 +14,7 @@ module.exports = class Storage {
             Rank: CreateStorage(0, "Rank"),
             Equipped: CreateStorage("", "Equipped"),
             Registry: CreateStorage([], "Registery"),
-            Coins: CreateStorage(0, "Coins"),
+            Coins: CreateStorage(500, "Coins"),
             Cooldown: CreateStorage(false),
             AFK: CreateStorage(false),
             Inventory: CreateStorage([], "Inventory"),
@@ -29,6 +29,7 @@ module.exports = class Storage {
             Shop: CreateStorage([], "Shop"),
             EggShop: CreateStorage("", "EggShop"),
             ServerItems: CreateStorage({}, "Items"),
+            ServerFishes: CreateStorage({}, "Fishes"),
         }
 
         this.config = {

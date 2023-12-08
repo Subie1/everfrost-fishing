@@ -36,7 +36,7 @@ module.exports = class Command {
         AFK.storage.set(`${message.guild.id}-${message.author.id}`, true);
         intervals.set(`${message.guild.id}-${message.author.id}`, setInterval(() => {
             if (world) {
-                const fishes = world.Fishes.map(fish => Fishes[fish]);
+                const fishes = world.Fishes.map(fish => Fishes(message.guild.id, client)[fish]);
                 const reward = Mathf.chance(fishes);
 
                 Bag.storage.set(`${message.guild.id}-${message.author.id}`, [...Bag.storage.get(`${message.guild.id}-${message.author.id}`), reward.id]);

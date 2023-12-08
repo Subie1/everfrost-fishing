@@ -14,7 +14,7 @@ module.exports = class Command {
 
         const errorHandler = new ErrorHandler(message);
 
-        const fishes = Bag.storage.get(`${message.guild.id}-${message.author.id}`).map(fish => { return { ...Fishes[fish] }}).filter(fish => fish.sell);
+        const fishes = Bag.storage.get(`${message.guild.id}-${message.author.id}`).map(fish => { return { ...Fishes(message.guild.id, client)[fish] }}).filter(fish => fish.sell);
         if (!fishes.length) return errorHandler.error("You do not have any fish", "Why not type !fish in a world channel", "Tip: Run !worlds for a list of worlds");
 
         let amount = 0;

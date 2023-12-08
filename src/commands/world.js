@@ -20,7 +20,7 @@ module.exports = class Command {
         for (const world of worlds) {
             if (message.channel.id !== world.id) continue;
             
-            const rewards = world.Fishes.map(fish => Fishes[fish]);
+            const rewards = world.Fishes.map(fish => Fishes(message.guild.id, client)[fish]);
 
             const embed = new EmbedBuilder();
             embed.setColor(process.env.HEX);

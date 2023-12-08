@@ -11,6 +11,10 @@ module.exports = class Client extends Discord.Client {
         super({ intents: ["MessageContent", "Guilds", "GuildMembers", "GuildMessages", "GuildPresences"] });
         this.login(process.env.TOKEN);
 
+        process.on("uncaughtException", (reason) => {
+            console.error(`Uncaught Exception at: ${reason.stack || reason}`);
+        })
+
         process.on("unhandledRejection", (reason) => {
             console.error(`Unhandled Rejection at: ${reason.stack || reason}`);
         })

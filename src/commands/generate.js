@@ -156,6 +156,65 @@ module.exports = class Command {
                 modal.addComponents(row1, row2, row3, row4);
                 await i.showModal(modal);
             }
+
+            if (action == "fish") {
+                const modal = new ModalBuilder();
+                modal.setCustomId("modal_fish_generation");
+                modal.setTitle("Generate a fish!");
+
+                const row1 = new ActionRowBuilder()
+                row1.addComponents(
+                    new TextInputBuilder()
+                        .setCustomId("info_name")
+                        .setLabel("Name")
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder("Koi")
+                        .setRequired(true),
+                )
+
+                const row2 = new ActionRowBuilder()
+                row2.addComponents(
+                    new TextInputBuilder()
+                        .setCustomId("info_description")
+                        .setLabel("Description")
+                        .setStyle(TextInputStyle.Paragraph)
+                        .setPlaceholder("Why is this thing so slippery")
+                        .setRequired(false),
+                )
+
+                const row3 = new ActionRowBuilder()
+                row3.addComponents(
+                    new TextInputBuilder()
+                        .setCustomId("info_sell")
+                        .setLabel("Sell")
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder("20")
+                        .setRequired(true),
+                )
+
+                const row4 = new ActionRowBuilder()
+                row4.addComponents(
+                    new TextInputBuilder()
+                        .setCustomId("info_chance")
+                        .setLabel("Chance")
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder("100")
+                        .setRequired(true),
+                )
+
+                const row5 = new ActionRowBuilder()
+                row5.addComponents(
+                    new TextInputBuilder()
+                        .setCustomId("info_power")
+                        .setLabel("Power")
+                        .setStyle(TextInputStyle.Short)
+                        .setPlaceholder("0")
+                        .setRequired(true),
+                )
+
+                modal.addComponents(row1, row2, row3, row4, row5);
+                await i.showModal(modal);
+            }
         })
 
         collector.on("end", async () => {

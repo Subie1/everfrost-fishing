@@ -44,7 +44,7 @@ module.exports = class Command {
             }
 
             for (const Fish of chunk) {
-                const fish = Fishes[Fish];
+                const fish = Fishes(message.guild.id, client)[Fish];
 
                 embed.addFields({
                     name: `${fish.name} x${Bag.storage.get(`${message.guild.id}-${user.id}`).filter(FISH  => FISH === fish.id).length}`,

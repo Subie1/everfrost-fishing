@@ -17,7 +17,7 @@ module.exports = class Command {
     }
 
     async run({ message, client, args }) {
-        const { ServerItems } = client.params.get("storage").server;
+        const { ServerItems, ServerFishes } = client.params.get("storage").server;
         const { CategoryID } = client.params.get("storage").config;
         const { SubscribedTemplates } = client.params.get("storage").player;
         const { ErrorHandler } = client.params.get("utils");
@@ -39,7 +39,11 @@ module.exports = class Command {
         if (channel.type !== ChannelType.GuildCategory) return handler.error("Failed link", "The CategoryID in the `!set` doesn't link to a channel of type `Category`");
 
         if (template.items) {
-            ServerItems.set(message.guild.id, template.items);
+            ServerItems.storage.set(message.guild.id, template.items);
+        }
+
+        if (template.fishes) {
+            ServerFishes.storage.set(message.guild.id, template.fishes);
         }
 
         for (const parsed of template.worlds) {
@@ -93,7 +97,7 @@ module.exports = class Command {
             embed.setDescription(Item.description ?? "No Description");
             embed.addFields({ name: "Type", value: Object.keys(TYPES).filter(key => TYPES[key] === Item.type)[0] });
 
-            if (Item.break) embed.addFields({ name: "Power", value: `${Item.power}` });
+            if (Item.power) embed.addFields({ name: "Power", value: `${Item.power}` });
 
             condition: if (Shop.storage.get(guild.id).find((i) => i.id === Item.id)) {
                 try {

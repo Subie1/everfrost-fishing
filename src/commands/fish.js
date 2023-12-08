@@ -31,7 +31,7 @@ module.exports = class Command {
         for (const world of worlds) {
             if (message.channel.id !== world.id) continue;
             
-            const rewards = world.Fishes.map(fish => Fishes[fish]);
+            const rewards = world.Fishes.map(fish => Fishes(message.guild.id, client)[fish]);
             const reward = Mathf.chance(rewards);
             
             if (reward.power > Items(message.guild.id, client)[equipped].power) return errorHandler.error(`You have encountered a fish you can't fish <#${ShopID.storage.get(message.guild.id)}>`, `You have encountered a ${reward.name} and it requires power of ${reward.power} to fish and you only have ${Items(message.guild.id, client)[equipped].power}`, `Navigate to the shop to upgrade your tools`);

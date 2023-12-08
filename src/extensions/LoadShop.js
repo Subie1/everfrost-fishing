@@ -1,6 +1,5 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require("discord.js");
 const { Items, TYPES } = require("../lib/Items");
-const { useWorlds } = require("../bases/Worlds");
 
 const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -11,12 +10,6 @@ module.exports = class Storage {
 
         client.on("interactionCreate", async i => {
             if (!i.isButton()) return;
-
-            const { CategoryID } = client.params.get("storage").config;
-            const worlds = useWorlds(client, i.guild.id, CategoryID.storage.get(i.guild.id));
-
-            if (!worlds.filter(world => world.id == i.channel.id).length) return;
-            console.log(worlds.filter(world => world.id === i.channel.id).length);
 
             const { player } = client.params.get("storage");
             const { Coins, Inventory, Equipped } = player;
@@ -54,20 +47,21 @@ module.exports = class Storage {
                 ShopID.storage.ensure(guild.id, "");
                 if (!ShopID.storage.get(guild.id).trim().length) continue;
 
-                const channel = guild.channels.cache.get(ShopID.storage.get(guild.id));
                 Shop.storage.ensure(guild.id, []);
-
+                
                 for (const Item of Object.values(Items(guild.id, client))) {
                     if (!Item.price) continue;
-
+                    
                     const embed = new EmbedBuilder();
                     embed.setColor(process.env.HEX);
                     embed.setTitle(`${Item.name} - ${Item.price.toLocaleString()} snowflakes`);
                     embed.setDescription(Item.description ?? "No Description");
                     embed.addFields({ name: "Type", value: Object.keys(TYPES).filter(key => TYPES[key] === Item.type)[0] });
-
-                    if (Item.break) embed.addFields({ name: "Power", value: `${Item.power}` });
-
+                    
+                    if (Item.power) embed.addFields({ name: "Power", value: `${Item.power}` });
+                    
+                    const channel = guild.channels.cache.get(ShopID.storage.get(guild.id));
+                    
                     condition: if (Shop.storage.get(guild.id).find((i) => i.id === Item.id)) {
                         try {
                             const result = Shop.storage.get(guild.id).find((i) => i.id === Item.id);
@@ -77,6 +71,7 @@ module.exports = class Storage {
                             await wait(1000);
                             continue;
                         } catch (err) {
+                            Shop.storage.remove(guild.id, (i) => i.id === Item.id);
                             break condition;
                         }
                     }

@@ -35,7 +35,7 @@ module.exports = class Command {
             embed.setDescription(`*Registry is what's used to update you to a higher rank*`);
 
             for (const Fish of chunk) {
-                const fish = Fishes[Fish]
+                const fish = Fishes(message.guild.id, client)[Fish]
 
                 embed.addFields({
                     name: `${fish.name}`,

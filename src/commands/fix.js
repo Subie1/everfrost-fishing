@@ -55,7 +55,7 @@ module.exports = class Command {
             embed.setDescription(Item.description ?? "No Description");
             embed.addFields({ name: "Type", value: Object.keys(TYPES).filter(key => TYPES[key] === Item.type)[0] });
 
-            if (Item.break) embed.addFields({ name: "Power", value: `${Item.power}` });
+            if (Item.power) embed.addFields({ name: "Power", value: `${Item.power}` });
 
             condition: if (Shop.storage.get(guild.id).find((i) => i.id === Item.id)) {
                 try {

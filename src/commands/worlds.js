@@ -19,7 +19,7 @@ module.exports = class Command {
         const page = new Pagination(message);
 
         for (const world of worlds) {
-            const rewards = world.Fishes.map(fish => Fishes[fish]);
+            const rewards = world.Fishes.map(fish => Fishes(message.guild.id, client)[fish]);
 
             const embed = new EmbedBuilder();
             embed.setColor(process.env.HEX);

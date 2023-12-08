@@ -2,6 +2,7 @@ const { EmbedBuilder, AttachmentBuilder } = require("discord.js");
 const { useWorlds } = require("../bases/Worlds");
 const { v4 } = require("uuid");
 const { Items } = require("../lib/Items");
+const { Fishes } = require("../lib/Fishes");
 
 module.exports = class Command {
 
@@ -40,6 +41,7 @@ module.exports = class Command {
             id: v4(),
             worlds,
             items: Items(message.guild.id, client),
+            fishes: Fishes(message.guild.id, client),
             author: message.author.id,
             likes: 0,
             dislikes: 0,

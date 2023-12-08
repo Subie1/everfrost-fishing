@@ -15,6 +15,7 @@ module.exports = class Command {
     }
 
     async run({ message, client }) {
+        const { ServerItems, ServerFishes } = client.params.get("storage").server;
         const { CategoryID } = client.params.get("storage").config;
         const { ErrorHandler } = client.params.get("utils");
         const handler = new ErrorHandler(message);
@@ -29,6 +30,9 @@ module.exports = class Command {
             const role = message.guild.roles.cache.find(role => role.name === `Rank ${RANKS(worlds)[world.World]}`);
             if (role) await role.delete();
         }
+
+        ServerItems.storage.set(message.guild.id, ServerItems.default);
+        ServerFishes.storage.set(message.guild.id, ServerFishes.default);
 
         const embed = new EmbedBuilder();
         embed.setColor(process.env.HEX);
