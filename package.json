@@ -1,0 +1,23 @@
+{
+  "name": "discordapplication",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "eslint . && node ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "enmap": "^5.9.8",
+    "uuid": "^9.0.1",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.46.0"
+  }
+}
